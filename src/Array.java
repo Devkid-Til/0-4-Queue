@@ -45,7 +45,6 @@ public class Array<E> {
     /**
      * 向所有元素后添加一个新元素
      * @param e
-     * @throws IllegalAccessException
      */
     public void addLast(E e) {
         add(size, e);
