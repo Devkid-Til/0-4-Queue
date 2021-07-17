@@ -100,17 +100,15 @@ public class LoopQueue<E> implements Queue{
 
     public static void main(String[] args) {
         LoopQueue<Integer> loopQueue = new LoopQueue<>();
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 20; i++) {
             loopQueue.enqueue(i);
             System.out.println(loopQueue.toString());
 
-//            if (i % 3 == 1) {
-//                loopQueue.dequeue();
-//                System.out.println(loopQueue.toString());
-//            }
+            if (i % 3 == 2) {
+                loopQueue.dequeue();
+                System.out.println(loopQueue.toString());
+            }
         }
-        loopQueue.dequeue();
-        System.out.println(loopQueue.toString());
 
     }
 
