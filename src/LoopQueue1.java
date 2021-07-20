@@ -41,14 +41,19 @@ public class LoopQueue1<E> implements Queue{
 
     @Override
     public E dequeue() {
-
-        if(size == getCapacity() / 4 && getCapacity() / 2 !=0) {
-            resize(getCapacity() / 2);
+        if (isEmpty()) {
+            throw new IllegalArgumentException("Cannot dequeue from a empty queue.");
         }
+
+        // 出队列时，先出队列在判断队列的capacity
+
         E ret = data[front];
         data[front] = null;
         front = (front + 1) % data.length;
         size--;
+        if(size == getCapacity() / 4 && getCapacity() / 2 !=0) {
+            resize(getCapacity() / 2);
+        }
         return ret;
 
     }
@@ -65,7 +70,7 @@ public class LoopQueue1<E> implements Queue{
     private void resize(int newCapacity) {
         E[] newData = (E[]) new Object[newCapacity];
         for (int i = 0; i < size; i ++) {
-            newData[i] = data[(front ++) % data.length];
+            newData[i] = data[(i + front) % data.length];
         }
         data = newData;
         front = 0;
