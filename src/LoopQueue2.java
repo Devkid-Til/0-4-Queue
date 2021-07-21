@@ -18,11 +18,13 @@ public class LoopQueue2<E> implements Queue {
     }
     @Override
     public int getSize() {
-        if (front < tail) {
-            return tail - front;
-        } else {
-            return getCapacity() - front + tail;
-        }
+//        if (front < tail) {
+//            return tail - front;
+//        } else {
+//            return getCapacity() - front + tail;
+//        }
+        // 老师实现
+        return tail >= front ? tail - front : tail - front + data.length;
     }
     @Override
     public boolean isEmpty() {
@@ -36,6 +38,8 @@ public class LoopQueue2<E> implements Queue {
         }
         data[tail] = (E) e;
         tail = (tail + 1) % data.length;
+        
+
     }
 
     @Override
@@ -43,12 +47,14 @@ public class LoopQueue2<E> implements Queue {
         if (isEmpty()) {
             throw new IllegalArgumentException("Cannot dequeue from a empty queue.");
         }
-        if (getSize() == getCapacity() / 4 && getCapacity() / 2 != 0){
-            resize(getCapacity() / 2);
-        }
+
         E ret = data[front];
         data[front] = null;
         front = (front + 1) % data.length;
+
+        if (getSize() == getCapacity() / 4 && getCapacity() / 2 != 0){
+            resize(getCapacity() / 2);
+        }
         return ret;
     }
 
@@ -69,7 +75,7 @@ public class LoopQueue2<E> implements Queue {
         for (int i = front; i != tail; i = (i + 1) % data.length){
             res.append(data[i]);
             //老师写法：if((i + front + 1) % data.length != tail) ：最后一个元素
-            if (i != tail - 1) {
+            if ((i + 1) % data.length != tail) {
                 res.append(", ");
             }
         }
